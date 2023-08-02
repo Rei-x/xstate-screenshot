@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import { procedure, router } from '../trpc';
 import { db } from '../../lib/db';
+import { getBaseUrl } from '../../lib/trpc';
 
 export const appRouter = router({
   createMachine: procedure
@@ -9,14 +10,28 @@ export const appRouter = router({
         source: z.string(),
       }),
     )
-    .mutation(({ input }) => {
-      return db
+    .mutation(async ({ input }) => {
+      const url = getBaseUrl();
+
+      const { id } = await db
         .insertInto('machines')
         .values({
           fileContent: input.source,
         })
         .returning('id')
-        .execute();
+        .executeTakeFirstOrThrow();
+
+      const params = new URLSearchParams({
+        url: `${url}/${id}`,
+        element: '#canvas > div:nth-child(1) > div:nth-child(2)',
+      });
+
+      const screenshotApiUrl = `https://browser-screenshots.vercel.app/api?${params}`;
+
+      return {
+        screenshotUrl: screenshotApiUrl,
+        id,
+      };
     }),
 });
 

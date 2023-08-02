@@ -2,6 +2,7 @@
   "name": "xstate-viz-app",
   "version": "0.7.0",
   "private": true,
+  "types": "./index.ts",
   "dependencies": {
     "@chakra-ui/icons": "^1.0.13",
     "@chakra-ui/react": "^1.8.8",

@@ -456,6 +456,7 @@ export const CanvasContainer: React.FC<{ panModeEnabled: boolean }> = ({
   return (
     <div
       ref={canvasRef}
+      id="canvas"
       style={{
         cursor: getCursorByState(state),
         WebkitFontSmoothing: 'auto',

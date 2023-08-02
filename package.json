@@ -2,9 +2,6 @@
   "name": "state-machine-viz",
   "version": "1.0.0",
   "description": "",
-  "workspaces": [
-    "visualEditor"
-  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

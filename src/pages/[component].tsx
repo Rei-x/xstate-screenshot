@@ -1,9 +1,19 @@
 import React from 'react';
-import { createMachine } from 'xstate';
 import { GetServerSideProps } from 'next';
 import { parseMachine } from '../components/parseMachine';
-import { MachineVisualizer } from '../components/MachineVisualizer';
+// import { MachineVisualizer } from '../components/MachineVisualizer';
 import { visualizeMessage } from '../components/utils';
+import dynamic from 'next/dynamic';
+
+const MachineVisualizer = dynamic(
+  () =>
+    import('../components/MachineVisualizer').then(
+      (mod) => mod.MachineVisualizer,
+    ),
+  {
+    ssr: false,
+  },
+);
 
 function App(props: { machineSource: string }) {
   const machine = parseMachine(props.machineSource);

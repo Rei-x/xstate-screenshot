@@ -2548,7 +2548,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@xstate/graph@npm:^1.3.0":
+"@xstate/graph@npm:1.3.0":
   version: 1.3.0
   resolution: "@xstate/graph@npm:1.3.0"
   peerDependencies:
@@ -2557,7 +2557,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@xstate/inspect@npm:^0.4.1":
+"@xstate/inspect@npm:0.4.1":
   version: 0.4.1
   resolution: "@xstate/inspect@npm:0.4.1"
   dependencies:
@@ -2568,7 +2568,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@xstate/machine-extractor@npm:^0.10.0":
+"@xstate/machine-extractor@npm:0.10.0":
   version: 0.10.0
   resolution: "@xstate/machine-extractor@npm:0.10.0"
   dependencies:
@@ -2582,7 +2582,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@xstate/react@npm:^1.5.1":
+"@xstate/react@npm:1.5.1":
   version: 1.5.1
   resolution: "@xstate/react@npm:1.5.1"
   dependencies:
@@ -3592,7 +3592,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"elkjs@npm:^0.7.1":
+"elkjs@npm:0.7.1":
   version: 0.7.1
   resolution: "elkjs@npm:0.7.1"
   checksum: d916b512080e2cd9ecf83ac975ca2ef196d8343f500c451934edec8b668eb40281ad365f2020c1fb2a0d988ecd5c538f48f3bbb31927d6bffd3cb90038b19227
@@ -7739,13 +7739,13 @@ __metadata:
     "@types/prettier": ^2.3.2
     "@types/react": ^18.2.18
     "@types/react-dom": ^18.2.7
-    "@xstate/graph": ^1.3.0
-    "@xstate/inspect": ^0.4.1
-    "@xstate/machine-extractor": ^0.10.0
-    "@xstate/react": ^1.5.1
+    "@xstate/graph": 1.3.0
+    "@xstate/inspect": 0.4.1
+    "@xstate/machine-extractor": 0.10.0
+    "@xstate/react": 1.5.1
     babel-jest: ^27.0.6
     concurrently: ^6.2.0
-    elkjs: ^0.7.1
+    elkjs: 0.7.1
     framer-motion: ^4
     immer: ^9.0.6
     jest: ^27.0.6
@@ -7759,11 +7759,11 @@ __metadata:
     realms-shim: ^1.2.2
     typescript: ^5.1.6
     web-worker: ^1.2.0
-    xstate: ^4.26.0
+    xstate: 4.26.0
   languageName: unknown
   linkType: soft
 
-"xstate@npm:^4.26.0":
+"xstate@npm:4.26.0":
   version: 4.26.0
   resolution: "xstate@npm:4.26.0"
   checksum: f27eedcd785b21a77bd040d035533d97bac803cf1a59962dcd839b52a3f628c40766c027a2d6c1ff7c3c4148151eb61c6c006009084c1d861ab311f60813918d

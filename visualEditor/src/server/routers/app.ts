@@ -30,6 +30,7 @@ export const appRouter = router({
 
       return {
         screenshotUrl: screenshotApiUrl,
+        url: `${url}/${id}`,
         id,
       };
     }),

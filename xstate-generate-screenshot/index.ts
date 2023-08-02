@@ -8,6 +8,8 @@ export const getScreenshotUrl = (fileContent: string) => {
 export const readFileAndGetScreenshotUrl = async (filePath: string) => {
   const fileContent = fs.readFileSync(filePath, "utf-8");
   const filename = filePath.split("/").pop();
+
+  console.log(filePath);
   if (!filename) {
     return;
   }

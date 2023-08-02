@@ -1,9 +1,9 @@
 import React from 'react';
 import { GetServerSideProps } from 'next';
 import { parseMachine } from '../components/parseMachine';
-// import { MachineVisualizer } from '../components/MachineVisualizer';
 import { visualizeMessage } from '../components/utils';
 import dynamic from 'next/dynamic';
+import { db } from '../lib/db';
 
 const MachineVisualizer = dynamic(
   () =>
@@ -24,17 +24,22 @@ function App(props: { machineSource: string }) {
 export default App;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const RAW_MACHINE_PATH =
-    'https://gist.githubusercontent.com/Rei-x/ad215452ff4722552be57f1a1daf3696/raw/209f2d69af0fefc78dc91b61116a7b57f756bcc4/machine.ts';
-  const machinePath = RAW_MACHINE_PATH;
+  const { id } = context.params!;
 
-  const fileContent = await fetch(machinePath).then((r) => r.text());
+  if (typeof id !== 'string') {
+    throw new Error('Invalid machine ID');
+  }
 
-  const invalidComponent = fileContent === '404: Not Found';
+  const source = await db
+    .selectFrom('machines')
+    .where('id', '=', id)
+    .selectAll()
+    .executeTakeFirst();
 
-  const machineSource = invalidComponent
-    ? visualizeMessage('Machine not found 😔')
-    : fileContent;
+  const machineSource =
+    typeof source === 'undefined'
+      ? visualizeMessage('Machine not found 😔')
+      : source.fileContent;
 
   return {
     props: { machineSource },

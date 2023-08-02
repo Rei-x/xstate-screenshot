@@ -26,15 +26,6 @@ export const MachineVisualizer = ({ machine }: { machine: StateNode }) => {
 
   return (
     <>
-      {/* 
-          //? Import bundled Elk if we're on server side 
-    */}
-      {typeof window !== undefined && (
-        <Head>
-          <Script src="https://unpkg.com/elkjs@0.7.1/lib/elk.bundled.js" />
-        </Head>
-      )}
-
       <Box sx={styles}>
         <SimulationProvider value={simService}>
           <Box

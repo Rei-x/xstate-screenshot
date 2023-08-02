@@ -17,6 +17,7 @@ const MachineVisualizer = dynamic(
 
 function App(props: { machineSource: string }) {
   const machine = parseMachine(props.machineSource);
+
   return <MachineVisualizer machine={machine} />;
 }
 

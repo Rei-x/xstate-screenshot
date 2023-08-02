@@ -24,6 +24,8 @@ export const MachineVisualizer = ({ machine }: { machine: StateNode }) => {
     });
   }, [machine]);
 
+  console.log('MASZYNAAA', machine.toJSON());
+
   return (
     <>
       <Box sx={styles}>

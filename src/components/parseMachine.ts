@@ -2,6 +2,7 @@ import * as XState from 'xstate';
 import * as XStateModel from 'xstate/lib/model';
 import * as XStateActions from 'xstate/lib/actions';
 import realmsShim from 'realms-shim';
+import * as parser from '@xstate/machine-extractor';
 
 const realm = realmsShim.makeRootRealm();
 
@@ -41,6 +42,16 @@ const resolveConditionalInitial = (source: string) => {
 
 export const parseMachine = (sourceCode: string) => {
   const source = resolveConditionalInitial(sourceCode);
+  const newSource = parser.extractMachinesFromFile(source);
+
+  const sourcWithCreateMachine = `
+  const { createMachine, assign, actions } = require("xstate");
+  
+  const machine = createMachine(${JSON.stringify(
+    newSource?.machines[0]?.toConfig(),
+  )});
+  `;
+
   const machines: Array<XState.StateNode> = [];
 
   const createMachineCapturer =
@@ -51,7 +62,7 @@ export const parseMachine = (sourceCode: string) => {
       return machine;
     };
 
-  realm.evaluate(source, {
+  realm.evaluate(sourcWithCreateMachine, {
     // we just allow for export statements to be used in the source code
     // we don't have any use for the exported values so we just mock the `exports` object
     exports: {},

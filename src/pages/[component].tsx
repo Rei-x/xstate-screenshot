@@ -13,10 +13,9 @@ function App(props: { machineSource: string }) {
 export default App;
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const componentName = `${context.params?.component}.js`;
   const RAW_MACHINE_PATH =
-    'https://raw.githubusercontent.com/chakra-ui/zag/main/.xstate/';
-  const machinePath = RAW_MACHINE_PATH + componentName;
+    'https://gist.githubusercontent.com/Rei-x/ad215452ff4722552be57f1a1daf3696/raw/209f2d69af0fefc78dc91b61116a7b57f756bcc4/machine.ts';
+  const machinePath = RAW_MACHINE_PATH;
 
   const fileContent = await fetch(machinePath).then((r) => r.text());
 

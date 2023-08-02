@@ -9,6 +9,7 @@ import { useInterpretCanvas } from '../components/useInterpretCanvas';
 import Head from 'next/head';
 import { styles } from '../components/styles';
 import { StateNode } from 'xstate';
+import Script from 'next/script';
 
 export const MachineVisualizer = ({ machine }: { machine: StateNode }) => {
   // don't use `devTools: true` here as it would freeze your browser
@@ -30,7 +31,7 @@ export const MachineVisualizer = ({ machine }: { machine: StateNode }) => {
     */}
       {typeof window !== undefined && (
         <Head>
-          <script src="https://unpkg.com/elkjs@0.7.1/lib/elk.bundled.js"></script>
+          <Script src="https://unpkg.com/elkjs@0.7.1/lib/elk.bundled.js" />
         </Head>
       )}
 

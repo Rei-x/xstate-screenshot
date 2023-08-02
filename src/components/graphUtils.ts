@@ -4,23 +4,21 @@ import {
   DirectedGraphNode,
   getBackLinkMap,
 } from './directedGraph';
-import type {
+import {
   ELK,
   ElkEdgeSection,
   ElkExtendedEdge,
   ElkNode,
-} from 'elkjs/lib/main';
+  default as ELKConc,
+} from 'elkjs';
 import { Point } from './pathUtils';
 import { StateNode } from 'xstate';
 
-declare global {
-  export const ELK: typeof import('elkjs/lib/main').default;
-}
+// @ts-ignore
+let elk: ELK = undefined;
 
-let elk: ELK;
-
-if (typeof ELK !== 'undefined') {
-  elk = new ELK();
+if (typeof elk == 'undefined') {
+  elk = new ELKConc();
 }
 
 type RelativeNodeEdgeMap = [

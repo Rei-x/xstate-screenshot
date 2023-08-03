@@ -87,26 +87,23 @@ export const Index = () => {
   }, [fileContent]);
 
   return (
-    <Stack py="10" px="20" overflow="auto" maxH="100vh">
+    <Stack py="10" pb="20" px={['2', '5', '20']} overflow="auto" maxH="100vh">
       <div>
         <Flex align="center">
           <Text fontSize="2xl" fontWeight="medium">
             SS screenshots
           </Text>
           <IconButton
-            size="sm"
+            size="lg"
             isRound
             ml="auto"
             aria-label="Open Github Repo"
             title="Open Github Repo"
             variant="ghost"
             icon={<FaGithub />}
-            onClick={() =>
-              window.open(
-                'https://github.com/Rei-x/xstate-viz-screenshot-generator',
-                '_blank',
-              )
-            }
+            as={Link}
+            href={'https://github.com/Rei-x/xstate-viz-screenshot-generator'}
+            target="_blank"
           />
         </Flex>
         <Divider />

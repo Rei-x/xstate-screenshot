@@ -26,8 +26,9 @@ const download = async (url: string, path: string) => {
 };
 
 program
+  .name("xstate-screenshot")
   .command("gen")
-  .description("Generate screenshots")
+  .description("generate screenshots")
   .argument("<files>", "Files to generate screenshots for")
   .action(async (filePattern: string) => {
     console.log(`Generating screenshots for ${filePattern.trim()}`);

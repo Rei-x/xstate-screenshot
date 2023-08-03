@@ -180,13 +180,8 @@ export function createInterpreterContext<
 }
 
 export const visualizeMessage = (message: string) => {
-  return `"use strict";
-
-var _xstate = require("xstate");
-
-const {
-  actions, createMachine
-} = _xstate;
+  return `import { createMachine } from "xstate";
+  
   const fetchMachine = createMachine({
     id: "${message}"})`;
 };

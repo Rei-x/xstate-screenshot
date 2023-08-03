@@ -22,7 +22,7 @@ export const appRouter = router({
         .executeTakeFirstOrThrow();
 
       const params = new URLSearchParams({
-        url: `${url}/${id}`,
+        url: `${url}/machine/${id}`,
         element: '#canvas > div:nth-child(1) > div:nth-child(2)',
       });
 

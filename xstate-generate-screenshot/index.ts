@@ -9,7 +9,6 @@ export const readFileAndGetScreenshotUrl = async (filePath: string) => {
   const fileContent = fs.readFileSync(filePath, "utf-8");
   const filename = filePath.split("/").pop();
 
-  console.log(filePath);
   if (!filename) {
     return;
   }
@@ -20,7 +19,7 @@ export const readFileAndGetScreenshotUrl = async (filePath: string) => {
 
   const data = await getScreenshotUrl(fileContent);
 
-  return { ...data, filename };
+  return { ...data, filename, filePath };
 };
 
 export const generateScreenshots = async (filesPattern: string) => {
@@ -31,6 +30,14 @@ export const generateScreenshots = async (filesPattern: string) => {
       watch(filesPattern, { persistent: false })
         .on("add", (path) => {
           if (path.endsWith(".typegen.ts")) {
+            return;
+          }
+          if (
+            !path.endsWith(".ts") &&
+            !path.endsWith(".tsx") &&
+            !path.endsWith(".js") &&
+            !path.endsWith(".jsx")
+          ) {
             return;
           }
           tasks.push(readFileAndGetScreenshotUrl(path));

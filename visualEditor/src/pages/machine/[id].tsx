@@ -1,13 +1,14 @@
 import React from 'react';
 import { GetServerSideProps } from 'next';
-import { parseMachine } from '../components/parseMachine';
-import { visualizeMessage } from '../components/utils';
+import { parseMachine } from '../../components/parseMachine';
+import { visualizeMessage } from '../../components/utils';
 import dynamic from 'next/dynamic';
-import { db } from '../lib/db';
+import { db } from '../../lib/db';
+import { z } from 'zod';
 
 const MachineVisualizer = dynamic(
   () =>
-    import('../components/MachineVisualizer').then(
+    import('../../components/MachineVisualizer').then(
       (mod) => mod.MachineVisualizer,
     ),
   {
@@ -23,12 +24,12 @@ function App(props: { machineSource: string }) {
 
 export default App;
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { id } = context.params!;
+const paramsSchema = z.object({
+  id: z.string().uuid(),
+});
 
-  if (typeof id !== 'string') {
-    throw new Error('Invalid machine ID');
-  }
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { id } = paramsSchema.parse(context.params);
 
   const source = await db
     .selectFrom('machines')

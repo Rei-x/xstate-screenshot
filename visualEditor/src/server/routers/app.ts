@@ -21,8 +21,10 @@ export const appRouter = router({
         .returning('id')
         .executeTakeFirstOrThrow();
 
+      const machineUrl = `${url}/machine/${id}`;
+
       const params = new URLSearchParams({
-        url: `${url}/machine/${id}`,
+        url: machineUrl,
         element: '#canvas > div:nth-child(1) > div:nth-child(2)',
       });
 
@@ -30,7 +32,7 @@ export const appRouter = router({
 
       return {
         screenshotUrl: screenshotApiUrl,
-        url: `${url}/${id}`,
+        url: machineUrl,
         id,
       };
     }),

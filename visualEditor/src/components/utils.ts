@@ -201,32 +201,35 @@ export const COND_TYPES = {
 
 export const parseConditions = (definition: TransitionDefinition<any, any>) => {
   const events = definition.source.config.on as Record<string, Event>;
-  // console.log(events);
-  // const event = events[definition.eventType];
+  if (!events) {
+    return [COND_TYPES.NONE] as const;
+  }
 
-  // if (typeof event === 'string') {
-  //   return [COND_TYPES.NONE, null] as const;
-  // } else if (Array.isArray(event)) {
-  //   const conds = event
-  //     .filter((cond) => 'cond' in cond)
-  //     .map((cond) => ({ cond: cond.cond, target: cond.target }));
+  const event = events[definition.eventType];
 
-  //   if (event.length === 1) {
-  //     return [conds[0] ? COND_TYPES.ONE : COND_TYPES.NONE, conds[0]] as const;
-  //   } else if (event.length > 1) {
-  //     if (conds.length > 1) {
-  //       //pass event for cases where there's a default branch
-  //       return [COND_TYPES.MANY, event] as const;
-  //     } else if (conds.length === 1) {
-  //       return [COND_TYPES.BOOLEAN, conds[0]] as const;
-  //     }
-  //   }
-  // } else if (event && 'cond' in event) {
-  //   return [
-  //     COND_TYPES.ONE,
-  //     { cond: event.cond, target: event.target },
-  //   ] as const;
-  // }
+  if (typeof event === 'string') {
+    return [COND_TYPES.NONE, null] as const;
+  } else if (Array.isArray(event)) {
+    const conds = event
+      .filter((cond) => 'cond' in cond)
+      .map((cond) => ({ cond: cond.cond, target: cond.target }));
+
+    if (event.length === 1) {
+      return [conds[0] ? COND_TYPES.ONE : COND_TYPES.NONE, conds[0]] as const;
+    } else if (event.length > 1) {
+      if (conds.length > 1) {
+        //pass event for cases where there's a default branch
+        return [COND_TYPES.MANY, event] as const;
+      } else if (conds.length === 1) {
+        return [COND_TYPES.BOOLEAN, conds[0]] as const;
+      }
+    }
+  } else if (event && 'cond' in event) {
+    return [
+      COND_TYPES.ONE,
+      { cond: event.cond, target: event.target },
+    ] as const;
+  }
 
   return [COND_TYPES.NONE] as const;
 };

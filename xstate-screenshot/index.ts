@@ -1,8 +1,32 @@
 import { watch } from "chokidar";
-import { client } from "./client";
+
 import fs from "fs";
+import lzstring from "lz-string";
+
+import * as parse from "@xstate/machine-extractor";
+
 export const getScreenshotUrl = (fileContent: string) => {
-  return client.createMachine.mutate({ source: fileContent });
+  const parsed = parse.extractMachinesFromFile(fileContent);
+
+  const machine = parsed?.machines.at(0);
+
+  const compressed = lzstring.compressToEncodedURIComponent(
+    JSON.stringify(machine?.toConfig())
+  );
+
+  const machineUrl = `https://xstate-screenshot.vercel.app/machine/${compressed}`;
+
+  const params = new URLSearchParams({
+    url: machineUrl,
+    element: "#canvas > div:nth-child(1) > div:nth-child(2)",
+  });
+
+  const screenshotApiUrl = `https://browser-screenshots.vercel.app/api?${params}`;
+
+  return {
+    url: machineUrl,
+    screenshotUrl: screenshotApiUrl,
+  };
 };
 
 export const readFileAndGetScreenshotUrl = async (filePath: string) => {
@@ -17,7 +41,7 @@ export const readFileAndGetScreenshotUrl = async (filePath: string) => {
     return;
   }
 
-  const data = await getScreenshotUrl(fileContent);
+  const data = getScreenshotUrl(fileContent);
 
   return { ...data, filename, filePath };
 };

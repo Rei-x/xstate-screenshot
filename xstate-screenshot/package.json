@@ -18,12 +18,15 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/node": "^20.4.6",
     "tsup": "^7.2.0",
     "typescript": "^5.1.6"
   },
   "dependencies": {
     "@trpc/client": "^10.36.0",
+    "@xstate/machine-extractor": "^0.10.0",
     "chokidar": "^3.5.3",
-    "commander": "^11.0.0"
+    "commander": "^11.0.0",
+    "lz-string": "^1.5.0"
   }
 }

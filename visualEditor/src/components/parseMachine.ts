@@ -1,6 +1,6 @@
 import * as XState from 'xstate';
-import * as XStateModel from 'xstate/lib/model';
-import * as XStateActions from 'xstate/lib/actions';
+import * as XStateModel from 'xstate/lib/model.js';
+import * as XStateActions from 'xstate/lib/actions.js';
 import realmsShim from 'realms-shim';
 import * as parser from '@xstate/machine-extractor';
 
@@ -44,12 +44,51 @@ export const parseMachine = (sourceCode: string) => {
   const source = resolveConditionalInitial(sourceCode);
   const newSource = parser.extractMachinesFromFile(source);
 
+  const machine = newSource?.machines[0];
+
   const sourcWithCreateMachine = `
   const { createMachine, assign, actions } = require("xstate");
+
+  const machineDefinition = ${JSON.stringify(machine?.toConfig())};
+
+  if (!machineDefinition.context) {
+    machineDefinition.context = {};
+  }
+
+  machineDefinition.context = {
+    ...machineDefinition.context,
+    ${newSource?.machines[0]?.getAllConds().map((cond) => {
+      return `${cond.name}: false`;
+    })}
+  };
+
+  if (!machineDefinition.on) {
+    machineDefinition.on = {};
+  }
+
+  machineDefinition.on = {
+    UPDATE_CONTEXT: {
+      actions: "updateContext",
+    },
+    ...machineDefinition.on,
+  }
+
   
-  const machine = createMachine(${JSON.stringify(
-    newSource?.machines[0]?.toConfig(),
-  )});
+
+  const machine = createMachine(machineDefinition, {
+    actions: {
+      updateContext: assign((context, event) => {
+        return {
+          [event.contextKey]: true
+        };
+      }),
+    },
+    guards: {
+      ${newSource?.machines[0]?.getAllConds().map((cond) => {
+        return `${cond.name}: (ctx) => ctx.${cond.name}`;
+      })}
+    }
+  });
   `;
 
   const machines: Array<XState.StateNode> = [];

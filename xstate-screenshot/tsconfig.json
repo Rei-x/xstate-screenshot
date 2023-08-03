@@ -4,6 +4,7 @@
     "noEmit": true,
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "lib": ["es2022"]
   }
 }

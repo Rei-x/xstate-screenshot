@@ -1,6 +1,6 @@
 {
-  "name": "xstate-generate-screenshot",
-  "version": "1.0.7",
+  "name": "xstate-screenshot",
+  "version": "1.0.0",
   "description": "",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

@@ -10,15 +10,8 @@ Serverless API to take screenshots of websites with Puppeteer.
 ## Installation
 
 1. Clone this GitHub repo
-1. Run `yarn install`
+1. Run `npm install`
 
 ## Running the Application
 
 1. Run `npm start`
-
-## Dependencies
-
-This application depends on the following packages:
-
-* [Puppeteer](https://pptr.dev)
-* [Vercel](https://vercel.com)

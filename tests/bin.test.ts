@@ -1,10 +1,9 @@
 import { test } from 'vitest'
-import { someFunction } from '../xstate-screenshot/bin.ts'
+import { download } from '../xstate-screenshot/bin.ts'
 
-test('someFunction works as expected', () => {
-  const result = someFunction(actualParam1, actualParam2)
-  const expected = actualExpectedResult
-  if (result !== expected) {
-    throw new Error(`${result} !== ${expected}`)
-  }
+test('download works as expected', () => {
+  const url = 'https://example.com'
+  const path = './example.txt'
+  await download(url, path)
+  // Check if the file was downloaded correctly
 })

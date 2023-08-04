@@ -10,7 +10,7 @@ Serverless API to take screenshots of websites with Puppeteer.
 ## Installation
 
 1. Clone this GitHub repo
-1. Run `npm install`
+2. Run `npm install`
 
 ## Running the Application
 
